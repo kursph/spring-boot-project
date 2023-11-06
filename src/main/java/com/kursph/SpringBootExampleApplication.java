@@ -3,6 +3,7 @@ package com.kursph;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +29,21 @@ public class SpringBootExampleApplication {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(customers);
 		SpringApplication.run(SpringBootExampleApplication.class, args);
+	}
+
+	@GetMapping("api/v1/customers")
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	@GetMapping("api/v1/customer/{id}")
+	public Customer getCustomer(@PathVariable("id") Integer id) {
+		return customers.stream().filter(customer -> customer.id.equals(id))
+				.findFirst()
+				.orElseThrow(
+						() -> new IllegalArgumentException("customer with id %s not found".formatted(id))
+				);
 	}
 
 	@GetMapping("/")
