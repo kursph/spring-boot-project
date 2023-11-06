@@ -19,7 +19,7 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
 
-    @GetMapping("api/v1/customer/{id}")
+    @GetMapping("api/v1/customers/{id}")
     public Customer getCustomer(@PathVariable("id") Integer id) {
         return customerService.getCustomer(id);
     }
