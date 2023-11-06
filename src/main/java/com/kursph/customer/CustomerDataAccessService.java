@@ -42,4 +42,9 @@ public class CustomerDataAccessService implements CustomerDAO{
     public boolean existsPersonWithEmail(String email) {
         return false;
     }
+
+    @Override
+    public void removeCustomer(Customer customer) {
+
+    }
 }

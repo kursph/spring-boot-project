@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -36,5 +37,13 @@ public class CustomerService {
                 customerRegistrationRequest.email(),
                 customerRegistrationRequest.age()
         ));
+    }
+
+    public void deleteCustomer(Integer id) {
+        Customer customer = customerDAO.selectCustomerById(id).orElseThrow(
+                () -> new ResourceNotFoundException("customer with id %s not found".formatted(id))
+        );
+
+        customerDAO.removeCustomer(customer);
     }
 }
