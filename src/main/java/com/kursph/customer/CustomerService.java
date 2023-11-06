@@ -1,6 +1,7 @@
 package com.kursph.customer;
 
 import com.kursph.exception.ResourceNotFound;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class CustomerService {
     private final CustomerDAO customerDAO;
 
-    public CustomerService(CustomerDAO customerDAO) {
+    public CustomerService(@Qualifier("jpa") CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
 
