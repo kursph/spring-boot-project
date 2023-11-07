@@ -22,13 +22,13 @@ public class SpringBootExampleApplication {
 		return args -> {
 			Customer customer1 = new Customer(
 					"Alex",
-					"alex@gmail.com",
+					"alex111@gmail.com",
 					22
 			);
 
 			Customer customer2 = new Customer(
 					"Alex",
-					"alex@gmail.com",
+					"alex11@gmail.com",
 					22
 			);
 
