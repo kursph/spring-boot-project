@@ -20,7 +20,7 @@ public class SpringBootExampleApplication {
 	@Bean
 	CommandLineRunner runner(CustomerRepository customerRepository) {
 		return args -> {
-			Customer customer1 = new Customer(
+			/* Customer customer1 = new Customer(
 					"Alex",
 					"alex111@gmail.com",
 					22
@@ -33,7 +33,7 @@ public class SpringBootExampleApplication {
 			);
 
 			List<Customer> customers = List.of(customer1, customer2);
-			customerRepository.saveAll(customers);
+			customerRepository.saveAll(customers); */
 		};
 	}
 }
