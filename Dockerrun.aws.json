@@ -1,0 +1,23 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "kursph-api",
+      "image": "kurshjku/kursph-spring-boot-api:latest",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "value": "jdbc:postgresql://awseb-e-rma2y2ktcs-stack-awsebrdsdatabase-cs4yyz2pzubn.cwfngv7mxbca.eu-central-1.rds.amazonaws.com:5432/customer"
+        }
+      ]
+    }
+  ]
+}
