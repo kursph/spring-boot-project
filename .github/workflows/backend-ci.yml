@@ -2,8 +2,10 @@ name: CI - Build Backend
 
 on:
   pull_request:
-    branches:
-      - main
+    types:
+      - opened
+      - edited
+      - synchronize
     paths:
       - backend/**
 
