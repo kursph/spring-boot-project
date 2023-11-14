@@ -25,6 +25,17 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+  kursph-react:
+    container_name: kursph-react
+    image: kurshjku/kursph-react
+    build:
+      context: frontend/react
+      dockerfile: Dockerfile
+    ports:
+      - "3000:5173"
+    depends_on:
+      - kursph-api
+    restart: unless-stopped
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
