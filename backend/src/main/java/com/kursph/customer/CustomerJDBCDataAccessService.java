@@ -19,7 +19,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     @Override
     public List<Customer> selectAllCustomers() {
         String sql = """
-                SELECT id, name, email, age FROM customer
+                SELECT id, name, email, age, gender FROM customer
                 """;
 
         return jdbcTemplate.query(sql, customerRowMapper);
@@ -28,7 +28,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     @Override
     public Optional<Customer> selectCustomerById(Integer id) {
         String sql = """
-                SELECT id, name, email, age FROM customer WHERE id = ?
+                SELECT id, name, email, age, gender FROM customer WHERE id = ?
                 """;
 
         return jdbcTemplate.query(sql, customerRowMapper, id).stream().findFirst();
@@ -37,9 +37,9 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     @Override
     public void insertCustomer(Customer customer) {
         String sql = """
-                INSERT INTO customer(name, email, age) VALUES (?, ?, ?)
+                INSERT INTO customer(name, email, age, gender) VALUES (?, ?, ?, ?)
                 """;
-        int result = jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getAge());
+        int result = jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getAge(), customer.getGender());
 
         System.out.printf("%d row affected", result);
     }
@@ -91,6 +91,15 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
             int result = jdbcTemplate.update(
                     sql,
                     customer.getEmail(),
+                    customer.getId());
+
+            System.out.println("update customer email result = " + result);
+        }
+        if (customer.getGender() != null) {
+            String sql = "UPDATE customer SET gender = ? WHERE id = ?";
+            int result = jdbcTemplate.update(
+                    sql,
+                    customer.getGender(),
                     customer.getId());
 
             System.out.println("update customer email result = " + result);

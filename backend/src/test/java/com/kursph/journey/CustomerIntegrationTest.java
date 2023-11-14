@@ -27,7 +27,8 @@ public class CustomerIntegrationTest {
         CustomerRegistrationRequest customerRegistrationRequest = new CustomerRegistrationRequest(
                 "Alex",
                 email,
-                20
+                20,
+                "MALE"
         );
         webTestClient.post()
                 .uri(CUSTOMER_URI)
@@ -52,7 +53,8 @@ public class CustomerIntegrationTest {
         Customer expectedCustomer = new Customer(
                 "Alex",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         assertThat(allCustomers)
@@ -85,7 +87,8 @@ public class CustomerIntegrationTest {
         CustomerRegistrationRequest customerRegistrationRequest = new CustomerRegistrationRequest(
                 "Peter",
                 email,
-                20
+                20,
+                "MALE"
         );
 
         webTestClient.post()
@@ -133,10 +136,12 @@ public class CustomerIntegrationTest {
     void canUpdateCustomer() {
         String email = "marcus@gmail.com";
         int age = 20;
+        String gender = "MALE";
         CustomerRegistrationRequest customerRegistrationRequest = new CustomerRegistrationRequest(
                 "Marcus",
                 email,
-                age
+                age,
+                gender
         );
 
         webTestClient.post()
@@ -191,7 +196,7 @@ public class CustomerIntegrationTest {
                 .getResponseBody();
 
         Customer expected = new Customer(
-                id, newName, email, age
+                id, newName, email, age, gender
         );
 
         assertThat(updatedCustomer).isEqualTo(expected);

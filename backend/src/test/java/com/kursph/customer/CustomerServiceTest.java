@@ -40,7 +40,8 @@ class CustomerServiceTest {
                 id,
                 "rrr",
                 "rrr@gmail.com",
-                20
+                20,
+                "MALE"
         );
 
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(customer));
@@ -67,7 +68,7 @@ class CustomerServiceTest {
         when(customerDAO.existsPersonWithEmail(email)).thenReturn(false);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19
+                "Alex", email, 19, "MALE"
         );
 
         customerService.addCustomer(request);
@@ -93,7 +94,7 @@ class CustomerServiceTest {
         when(customerDAO.existsPersonWithEmail(email)).thenReturn(true);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19
+                "Alex", email, 19, "MALE"
         );
 
         assertThatThrownBy(() -> customerService.addCustomer(request))
@@ -110,7 +111,8 @@ class CustomerServiceTest {
                 id,
                 "ggg",
                 "ggg@gmail.com",
-                20
+                20,
+                "MALE"
         );
 
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(customer));
@@ -127,7 +129,8 @@ class CustomerServiceTest {
                 id,
                 "ggg",
                 "ggg@gmail.com",
-                20
+                20,
+                "MALE"
         );
 
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.empty());
