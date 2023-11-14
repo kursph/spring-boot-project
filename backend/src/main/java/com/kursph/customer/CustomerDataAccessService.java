@@ -17,7 +17,8 @@ public class CustomerDataAccessService implements CustomerDAO{
                 1,
                 "Alex",
                 "alex@gmail.com",
-                22
+                22,
+                "MALE"
         );
         customers.add(customer1);
     }
