@@ -4,6 +4,7 @@ import com.kursph.exception.DuplicateResourceException;
 import com.kursph.exception.RequestValidationException;
 import com.kursph.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.Objects;
 @Service
 public class CustomerService {
     private final CustomerDAO customerDAO;
+    private final PasswordEncoder passwordEncoder;
 
-    public CustomerService(@Qualifier("jpa") CustomerDAO customerDAO) {
+    public CustomerService(@Qualifier("jpa") CustomerDAO customerDAO, PasswordEncoder passwordEncoder) {
         this.customerDAO = customerDAO;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Customer> getAllCustomers() {
@@ -32,7 +35,8 @@ public class CustomerService {
         customerDAO.insertCustomer(new Customer(
                 customerRegistrationRequest.name(),
                 customerRegistrationRequest.email(),
-                "foobar", customerRegistrationRequest.age(),
+                passwordEncoder.encode(customerRegistrationRequest.password()),
+                customerRegistrationRequest.age(),
                 customerRegistrationRequest.gender()
         ));
     }

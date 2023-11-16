@@ -27,7 +27,7 @@ public class CustomerIntegrationTest {
         CustomerRegistrationRequest customerRegistrationRequest = new CustomerRegistrationRequest(
                 "Alex",
                 email,
-                20,
+                "foobar", 20,
                 "MALE"
         );
         webTestClient.post()
@@ -87,7 +87,7 @@ public class CustomerIntegrationTest {
         CustomerRegistrationRequest customerRegistrationRequest = new CustomerRegistrationRequest(
                 "Peter",
                 email,
-                20,
+                "foobar", 20,
                 "MALE"
         );
 
@@ -140,7 +140,7 @@ public class CustomerIntegrationTest {
         CustomerRegistrationRequest customerRegistrationRequest = new CustomerRegistrationRequest(
                 "Marcus",
                 email,
-                age,
+                "foobar", age,
                 gender
         );
 

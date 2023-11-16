@@ -23,7 +23,7 @@ class CustomerServiceTest {
 
     @BeforeEach
     void setUp() {
-        customerService = new CustomerService(customerDAO);
+        customerService = new CustomerService(customerDAO, passwordEncoder);
     }
 
     @Test
@@ -68,7 +68,7 @@ class CustomerServiceTest {
         when(customerDAO.existsPersonWithEmail(email)).thenReturn(false);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19, "MALE"
+                "Alex", email, "foobar", 19, "MALE"
         );
 
         customerService.addCustomer(request);
@@ -94,7 +94,7 @@ class CustomerServiceTest {
         when(customerDAO.existsPersonWithEmail(email)).thenReturn(true);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19, "MALE"
+                "Alex", email, "foobar", 19, "MALE"
         );
 
         assertThatThrownBy(() -> customerService.addCustomer(request))
