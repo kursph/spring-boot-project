@@ -53,4 +53,10 @@ public class CustomerDataAccessService implements CustomerDAO{
     public void updateCustomer(Customer customer) {
 
     }
+
+    @Override
+    public Optional<Customer> selectUserByEmail(String email) {
+        return customers.stream().filter(customer -> customer.getUsername().equals(email))
+                .findFirst();
+    }
 }
