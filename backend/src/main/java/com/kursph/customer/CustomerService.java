@@ -9,23 +9,29 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
     private final CustomerDAO customerDAO;
     private final PasswordEncoder passwordEncoder;
+    private final CustomerDTOMapper customerDTOMapper;
 
-    public CustomerService(@Qualifier("jpa") CustomerDAO customerDAO, PasswordEncoder passwordEncoder) {
+    public CustomerService(@Qualifier("jpa") CustomerDAO customerDAO, PasswordEncoder passwordEncoder, CustomerDTOMapper customerDTOMapper) {
         this.customerDAO = customerDAO;
         this.passwordEncoder = passwordEncoder;
+        this.customerDTOMapper = customerDTOMapper;
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerDAO.selectAllCustomers();
+    public List<CustomerDTO> getAllCustomers() {
+        return customerDAO.selectAllCustomers()
+                .stream()
+                .map(customerDTOMapper)
+                .collect(Collectors.toList());
     }
 
-    public Customer getCustomer(Integer id) {
-        return getCustomerObject(id);
+    public CustomerDTO getCustomer(Integer id) {
+        return getCustomerDTO(id);
     }
 
     public void addCustomer(CustomerRegistrationRequest customerRegistrationRequest) {
@@ -86,8 +92,17 @@ public class CustomerService {
         }
     }
 
+    private CustomerDTO getCustomerDTO(Integer id) {
+        return customerDAO.selectCustomerById(id)
+                .map(customerDTOMapper)
+                .orElseThrow(
+                () -> new ResourceNotFoundException("customer with id %s not found".formatted(id))
+        );
+    }
+
     private Customer getCustomerObject(Integer id) {
-        return customerDAO.selectCustomerById(id).orElseThrow(
+        return customerDAO.selectCustomerById(id)
+                .orElseThrow(
                 () -> new ResourceNotFoundException("customer with id %s not found".formatted(id))
         );
     }
