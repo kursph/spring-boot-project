@@ -38,7 +38,7 @@ class CustomerServiceTest {
         int id = 1;
         Customer customer = new Customer(
                 id,
-                "rrr",
+                "foobar", "rrr",
                 "rrr@gmail.com",
                 20,
                 "MALE"
@@ -109,7 +109,7 @@ class CustomerServiceTest {
         int id = 1;
         Customer customer = new Customer(
                 id,
-                "ggg",
+                "foobar", "ggg",
                 "ggg@gmail.com",
                 20,
                 "MALE"
@@ -127,7 +127,7 @@ class CustomerServiceTest {
         int id = 1;
         Customer customer = new Customer(
                 id,
-                "ggg",
+                "foobar", "ggg",
                 "ggg@gmail.com",
                 20,
                 "MALE"

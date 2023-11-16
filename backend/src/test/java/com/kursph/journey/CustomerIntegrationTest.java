@@ -53,7 +53,7 @@ public class CustomerIntegrationTest {
         Customer expectedCustomer = new Customer(
                 "Alex",
                 email,
-                20,
+                "foobar", 20,
                 "MALE"
         );
 
@@ -196,7 +196,7 @@ public class CustomerIntegrationTest {
                 .getResponseBody();
 
         Customer expected = new Customer(
-                id, newName, email, age, gender
+                id, "foobar", newName, email, age, gender
         );
 
         assertThat(updatedCustomer).isEqualTo(expected);

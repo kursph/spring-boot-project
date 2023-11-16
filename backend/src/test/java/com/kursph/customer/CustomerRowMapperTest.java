@@ -25,7 +25,7 @@ class CustomerRowMapperTest {
 
         Customer expected = new Customer(
                 1,
-                "Alex",
+                "foobar", "Alex",
                 "alex@gmail.com",
                 20,
                 "MALE"

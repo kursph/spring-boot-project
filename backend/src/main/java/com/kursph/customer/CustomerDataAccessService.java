@@ -15,7 +15,7 @@ public class CustomerDataAccessService implements CustomerDAO{
 
         Customer customer1 = new Customer(
                 1,
-                "Alex",
+                "foobar", "Alex",
                 "alex@gmail.com",
                 22,
                 "MALE"
