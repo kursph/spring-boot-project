@@ -27,7 +27,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "aaa",
                 "aaa@gmail.com",
-                11,
+                "foobar", 11,
                 "MALE"
         );
 
@@ -44,7 +44,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "bbb",
                 email,
-                11,
+                "foobar", 11,
                 "MALE"
         );
 
@@ -61,6 +61,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
 
         assertThat(actual).isPresent().hasValueSatisfying(c -> {
             assertThat(c.getId().equals(id));
+            assertThat(c.getPassword().equals(customer.getPassword()));
             assertThat(c.getEmail().equals(customer.getEmail()));
             assertThat(c.getName().equals(customer.getName()));
             assertThat(c.getAge().equals(customer.getAge()));
@@ -87,7 +88,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "ccc",
                 email,
-                11,
+                "foobar", 11,
                 "MALE"
         );
         customerJDBCDataAccessService.insertCustomer(customer);
@@ -125,7 +126,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "ddd",
                 email,
-                20,
+                "foobar", 20,
                 "MALE"
         );
 

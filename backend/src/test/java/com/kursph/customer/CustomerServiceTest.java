@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -20,10 +21,13 @@ class CustomerServiceTest {
     private CustomerService customerService;
     @Mock
     private CustomerDAO customerDAO;
+    @Mock
+    private PasswordEncoder passwordEncoder;
+    private final CustomerDTOMapper customerDTOMapper = new CustomerDTOMapper();
 
     @BeforeEach
     void setUp() {
-        customerService = new CustomerService(customerDAO);
+        customerService = new CustomerService(customerDAO, passwordEncoder, customerDTOMapper);
     }
 
     @Test
@@ -38,7 +42,7 @@ class CustomerServiceTest {
         int id = 1;
         Customer customer = new Customer(
                 id,
-                "rrr",
+                "foobar", "rrr",
                 "rrr@gmail.com",
                 20,
                 "MALE"
@@ -46,8 +50,10 @@ class CustomerServiceTest {
 
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
-        Customer actual = customerService.getCustomer(id);
-        assertThat(actual).isEqualTo(customer);
+        CustomerDTO expected = customerDTOMapper.apply(customer);
+
+        CustomerDTO actual = customerService.getCustomer(id);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -68,8 +74,11 @@ class CustomerServiceTest {
         when(customerDAO.existsPersonWithEmail(email)).thenReturn(false);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19, "MALE"
+                "Alex", email, "foobar", 19, "MALE"
         );
+
+        String hash = "657567hkfkjg(/&/$";
+        when(passwordEncoder.encode("foobar")).thenReturn(hash);
 
         customerService.addCustomer(request);
 
@@ -85,6 +94,7 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getName()).isEqualTo(request.name());
         assertThat(capturedCustomer.getEmail()).isEqualTo(request.email());
         assertThat(capturedCustomer.getAge()).isEqualTo(request.age());
+        assertThat(capturedCustomer.getPassword()).isEqualTo(hash);
     }
 
     @Test
@@ -94,7 +104,7 @@ class CustomerServiceTest {
         when(customerDAO.existsPersonWithEmail(email)).thenReturn(true);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex", email, 19, "MALE"
+                "Alex", email, "foobar", 19, "MALE"
         );
 
         assertThatThrownBy(() -> customerService.addCustomer(request))
@@ -109,7 +119,7 @@ class CustomerServiceTest {
         int id = 1;
         Customer customer = new Customer(
                 id,
-                "ggg",
+                "foobar", "ggg",
                 "ggg@gmail.com",
                 20,
                 "MALE"
@@ -127,7 +137,7 @@ class CustomerServiceTest {
         int id = 1;
         Customer customer = new Customer(
                 id,
-                "ggg",
+                "foobar", "ggg",
                 "ggg@gmail.com",
                 20,
                 "MALE"

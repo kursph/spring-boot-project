@@ -1,5 +1,8 @@
 package com.kursph.customer;
 
+import com.kursph.jwt.JWTUtil;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,24 +11,31 @@ import java.util.List;
 @RequestMapping("api/v1/customers")
 public class CustomerController {
     private final CustomerService customerService;
+    private final JWTUtil jwtUtil;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, JWTUtil jwtUtil) {
         this.customerService = customerService;
+        this.jwtUtil = jwtUtil;
     }
 
     @GetMapping
-    public List<Customer> getCustomers() {
+    public List<CustomerDTO> getCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("{id}")
-    public Customer getCustomer(@PathVariable("id") Integer id) {
+    public CustomerDTO getCustomer(@PathVariable("id") Integer id) {
         return customerService.getCustomer(id);
     }
 
     @PostMapping
-    public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
+    public ResponseEntity<?> registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
         customerService.addCustomer(customerRegistrationRequest);
+        String jwt = jwtUtil.issueToken(customerRegistrationRequest.email(), "ROLE_USER");
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, jwt)
+                .build();
     }
 
     @DeleteMapping("{id}")

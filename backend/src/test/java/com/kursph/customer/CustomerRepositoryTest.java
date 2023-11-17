@@ -25,7 +25,7 @@ class CustomerRepositoryTest extends AbstractTestcontainers {
         Customer customer = new Customer(
                 "vvv",
                 "vvv@gmail.com",
-                20,
+                "foobar", 20,
                 "MALE"
         );
         customerRepository.save(customer);

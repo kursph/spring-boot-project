@@ -19,7 +19,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     @Override
     public List<Customer> selectAllCustomers() {
         String sql = """
-                SELECT id, name, email, age, gender FROM customer
+                SELECT id, password, name, email, age, gender FROM customer
                 """;
 
         return jdbcTemplate.query(sql, customerRowMapper);
@@ -28,7 +28,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     @Override
     public Optional<Customer> selectCustomerById(Integer id) {
         String sql = """
-                SELECT id, name, email, age, gender FROM customer WHERE id = ?
+                SELECT id, password, name, email, age, gender FROM customer WHERE id = ?
                 """;
 
         return jdbcTemplate.query(sql, customerRowMapper, id).stream().findFirst();
@@ -37,9 +37,9 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     @Override
     public void insertCustomer(Customer customer) {
         String sql = """
-                INSERT INTO customer(name, email, age, gender) VALUES (?, ?, ?, ?)
+                INSERT INTO customer(name, email, password, age, gender) VALUES (?, ?, ?, ?, ?)
                 """;
-        int result = jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getAge(), customer.getGender());
+        int result = jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getPassword(), customer.getAge(), customer.getGender());
 
         System.out.printf("%d row affected", result);
     }
@@ -104,5 +104,14 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
 
             System.out.println("update customer email result = " + result);
         }
+    }
+
+    @Override
+    public Optional<Customer> selectUserByEmail(String email) {
+        String sql = """
+                SELECT id, password, name, email, age, gender FROM customer WHERE email = ?
+                """;
+
+        return jdbcTemplate.query(sql, customerRowMapper, email).stream().findFirst();
     }
 }

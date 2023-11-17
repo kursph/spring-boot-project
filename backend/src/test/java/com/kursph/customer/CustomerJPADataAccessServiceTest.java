@@ -45,7 +45,7 @@ class CustomerJPADataAccessServiceTest {
         Customer customer = new Customer(
                 "lll",
                 "lll@gmail.com",
-                20,
+                "foobar", 20,
                 "MALE"
         );
         customerJPADataAccessService.insertCustomer(customer);
@@ -66,7 +66,7 @@ class CustomerJPADataAccessServiceTest {
         Customer customer = new Customer(
                 "qqq",
                 "qqq@gmail.com",
-                20,
+                "foobar", 20,
                 "MALE"
         );
         customerJPADataAccessService.removeCustomer(customer);
@@ -79,7 +79,7 @@ class CustomerJPADataAccessServiceTest {
         Customer customer = new Customer(
                 "llll",
                 "llll@gmail.com",
-                20,
+                "foobar", 20,
                 "MALE"
         );
         customerJPADataAccessService.updateCustomer(customer);
