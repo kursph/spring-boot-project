@@ -49,7 +49,7 @@ export const updateCustomer = async (id, update) => {
 
 export const login = async (usernameAndPassword) => {
     try {
-        return await axios.put(
+        return await axios.post(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/login`,
             usernameAndPassword
         )
