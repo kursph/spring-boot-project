@@ -17,10 +17,10 @@ import {
     AlertDialogContent,
     AlertDialogOverlay, AlertDialog,
 } from '@chakra-ui/react';
-import {deleteCustomer} from "../services/client.js";
-import {errorNotification, successNotification} from "../services/notification.js";
+import {deleteCustomer} from "../../services/client.js";
+import {errorNotification, successNotification} from "../../services/notification.js";
 import {useRef} from "react";
-import UpdateCustomerDrawer from "./customer/UpdateCustomerDrawer.jsx";
+import UpdateCustomerDrawer from "./UpdateCustomerDrawer.jsx";
 
 export default function CardWithImage({id, name, email, age, gender, imageNumber, fetchCustomers}) {
     const randomGender = gender === "MALE" ? "men" : "women"

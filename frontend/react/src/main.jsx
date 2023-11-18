@@ -4,12 +4,13 @@ import App from './App.jsx'
 import {ChakraProvider} from "@chakra-ui/react";
 import {createStandaloneToast} from "@chakra-ui/toast";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import Login from "./components/login/Login.jsx";
 
 const {ToastContainer} = createStandaloneToast();
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <h1>test</h1>
+        element: <Login />
     },
     {
         path: "dashboard",
