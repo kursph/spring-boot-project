@@ -12,6 +12,8 @@ import {
 } from '@chakra-ui/react';
 import {Form, Formik, useField} from "formik";
 import * as Yup from 'yup';
+import {useAuth} from "../context/AuthContext.jsx";
+import {errorNotification} from "../../services/notification.js";
 
 const MyTextInput = ({label, ...props}) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -33,6 +35,8 @@ const MyTextInput = ({label, ...props}) => {
 };
 
 const LoginForm = () => {
+    const {login} = useAuth();
+
     return (
         <Formik
             validateOnMount={true}
@@ -44,7 +48,17 @@ const LoginForm = () => {
             }
             initialValues={{username: '', password: ''}}
             onSubmit={(values, {setSubmitting}) => {
-                alert(JSON.stringify(values, null, 0));
+                setSubmitting = true;
+                login(values).then(res => {
+
+                }).catch(err => {
+                    errorNotification(
+                        err.code,
+                        err.response.data.message
+                    )
+                }).finally(() => {
+                    setSubmitting = false;
+                })
             }}>
             {({isValid, isSubmitting}) => (
                  <Form>

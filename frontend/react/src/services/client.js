@@ -39,3 +39,14 @@ export const updateCustomer = async (id, update) => {
         throw e;
     }
 }
+
+export const login = async (usernameAndPassword) => {
+    try {
+        return await axios.put(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/login`,
+            usernameAndPassword
+        )
+    } catch (e) {
+        throw e;
+    }
+}
