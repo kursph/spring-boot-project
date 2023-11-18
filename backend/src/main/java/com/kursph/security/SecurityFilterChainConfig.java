@@ -1,6 +1,7 @@
 package com.kursph.security;
 
 import com.kursph.jwt.JWTAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,7 +21,11 @@ public class SecurityFilterChainConfig {
     private final JWTAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationEntryPoint authenticationEntryPoint;
 
-    public SecurityFilterChainConfig(AuthenticationProvider authenticationProvider, JWTAuthenticationFilter jwtAuthenticationFilter, AuthenticationEntryPoint authenticationEntryPoint) {
+    public SecurityFilterChainConfig(
+            AuthenticationProvider authenticationProvider,
+            JWTAuthenticationFilter jwtAuthenticationFilter,
+            @Qualifier("delegatedAuthEntryPoint") AuthenticationEntryPoint authenticationEntryPoint
+    ) {
         this.authenticationProvider = authenticationProvider;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.authenticationEntryPoint = authenticationEntryPoint;
@@ -28,10 +33,15 @@ public class SecurityFilterChainConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
+        httpSecurity
+                .csrf().disable()
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customers", "/api/v1/auth/login")
+                .requestMatchers(
+                        HttpMethod.POST,
+                        "/api/v1/customers",
+                        "/api/v1/auth/login"
+                )
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -40,14 +50,13 @@ public class SecurityFilterChainConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(
+                        jwtAuthenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                )
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint);
 
-        try {
-            return httpSecurity.build();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return httpSecurity.build();
     }
 }

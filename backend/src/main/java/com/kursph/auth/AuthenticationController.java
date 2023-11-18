@@ -17,12 +17,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) {
-        AuthenticationResponse authenticationResponse = authenticationService.login(authenticationRequest);
-
-        return ResponseEntity
-                .ok()
-                .header(HttpHeaders.AUTHORIZATION, authenticationResponse.token())
-                .body(authenticationResponse);
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequest request) {
+        AuthenticationResponse response = authenticationService.login(request);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, response.token())
+                .body(response);
     }
 }

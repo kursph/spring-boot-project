@@ -15,17 +15,19 @@ public class AuthenticationService {
     private final CustomerDTOMapper customerDTOMapper;
     private final JWTUtil jwtUtil;
 
-    public AuthenticationService(AuthenticationManager authenticationManager, CustomerDTOMapper customerDTOMapper, JWTUtil jwtUtil) {
+    public AuthenticationService(AuthenticationManager authenticationManager,
+                                 CustomerDTOMapper customerDTOMapper,
+                                 JWTUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.customerDTOMapper = customerDTOMapper;
         this.jwtUtil = jwtUtil;
     }
 
-    public AuthenticationResponse login(AuthenticationRequest authenticationRequest) {
+    public AuthenticationResponse login(AuthenticationRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.username(),
-                        authenticationRequest.password()
+                        request.username(),
+                        request.password()
                 )
         );
         Customer principal = (Customer) authentication.getPrincipal();
