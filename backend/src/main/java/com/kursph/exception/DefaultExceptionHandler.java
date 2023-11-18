@@ -13,9 +13,10 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class DefaultExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiError> handleException(ResourceNotFoundException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ApiError> handleException(ResourceNotFoundException e,
+                                                    HttpServletRequest request) {
         ApiError apiError = new ApiError(
-                httpServletRequest.getRequestURI(),
+                request.getRequestURI(),
                 e.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now()
@@ -25,9 +26,10 @@ public class DefaultExceptionHandler {
     }
 
     @ExceptionHandler(InsufficientAuthenticationException.class)
-    public ResponseEntity<ApiError> handleException(InsufficientAuthenticationException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ApiError> handleException(InsufficientAuthenticationException e,
+                                                    HttpServletRequest request) {
         ApiError apiError = new ApiError(
-                httpServletRequest.getRequestURI(),
+                request.getRequestURI(),
                 e.getMessage(),
                 HttpStatus.FORBIDDEN.value(),
                 LocalDateTime.now()
@@ -37,9 +39,10 @@ public class DefaultExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ApiError> handleException(BadCredentialsException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ApiError> handleException(BadCredentialsException e,
+                                                    HttpServletRequest request) {
         ApiError apiError = new ApiError(
-                httpServletRequest.getRequestURI(),
+                request.getRequestURI(),
                 e.getMessage(),
                 HttpStatus.UNAUTHORIZED.value(),
                 LocalDateTime.now()
@@ -49,9 +52,10 @@ public class DefaultExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleException(Exception e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ApiError> handleException(Exception e,
+                                                    HttpServletRequest request) {
         ApiError apiError = new ApiError(
-                httpServletRequest.getRequestURI(),
+                request.getRequestURI(),
                 e.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 LocalDateTime.now()

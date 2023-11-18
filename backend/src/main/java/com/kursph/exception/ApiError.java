@@ -6,6 +6,6 @@ public record ApiError(
         String path,
         String message,
         int statusCode,
-        LocalDateTime localTime
+        LocalDateTime localDateTime
 ) {
 }

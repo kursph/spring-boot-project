@@ -11,7 +11,6 @@ import java.util.List;
 
 @Configuration
 public class CorsConfig {
-
     @Value("#{'${cors.allowed-origins}'.split(',')}")
     private List<String> allowedOrigins;
 
@@ -22,7 +21,7 @@ public class CorsConfig {
     private List<String> allowedHeaders;
 
     @Value("#{'${cors.exposed-headers}'.split(',')}")
-    private List<String> exposedHeaders;
+    private List<String> expectedHeaders;
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -30,7 +29,7 @@ public class CorsConfig {
         configuration.setAllowedOrigins(allowedOrigins);
         configuration.setAllowedMethods(allowedMethods);
         configuration.setAllowedHeaders(allowedHeaders);
-        configuration.setAllowedHeaders(exposedHeaders);
+        configuration.setExposedHeaders(expectedHeaders);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", configuration);
 
