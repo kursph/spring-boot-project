@@ -21,7 +21,7 @@
     },
     {
       "name": "kursph-react",
-      "image": "kurshjku/kursph-react:15.11.2023.10.22.55",
+      "image": "kurshjku/kursph-react:18.11.2023.11.10.18",
       "essential": true,
       "memory": 256,
       "portMappings": [
