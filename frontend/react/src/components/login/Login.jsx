@@ -15,7 +15,7 @@ import {
 import {Formik, Form, useField} from "formik";
 import * as Yup from 'yup';
 import {useAuth} from "../context/AuthContext.jsx";
-import {errorNotification} from "../../services/notification.js";
+import {errorNotification, successNotification} from "../../services/notification.js";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
@@ -60,7 +60,10 @@ const LoginForm = () => {
                 setSubmitting(true);
                 login(values).then(res => {
                     navigate("/dashboard")
-                    console.log("Successfully logged in");
+                    successNotification(
+                        "Successfully logged in",
+                        "Login"
+                    )
                 }).catch(err => {
                     errorNotification(
                         err.code,
