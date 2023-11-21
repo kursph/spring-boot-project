@@ -1,6 +1,6 @@
-import {createStandaloneToast} from "@chakra-ui/toast";
+import { createStandaloneToast } from '@chakra-ui/toast'
 
-const {toast} = createStandaloneToast();
+const { toast } = createStandaloneToast()
 
 const notification = (title, description, status) => {
     toast({
@@ -9,7 +9,7 @@ const notification = (title, description, status) => {
         status,
         isClosable: true,
         duration: 4000
-    });
+    })
 }
 
 export const successNotification = (title, description) => {
@@ -17,7 +17,7 @@ export const successNotification = (title, description) => {
         title,
         description,
         "success"
-    );
+    )
 }
 
 export const errorNotification = (title, description) => {
@@ -25,5 +25,5 @@ export const errorNotification = (title, description) => {
         title,
         description,
         "error"
-    );
+    )
 }

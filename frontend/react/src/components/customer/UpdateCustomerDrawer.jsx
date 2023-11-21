@@ -47,12 +47,12 @@ const UpdateCustomerDrawer = ({ fetchCustomers, initialValues, customerId }) => 
                         leftIcon={<CloseIcon/>}
                         colorScheme={"teal"}
                         onClick={onClose}>
-                        Close
+                    Close
                     </Button>
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
-    </>
+        </>
 
 }
 

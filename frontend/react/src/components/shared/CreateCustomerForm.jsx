@@ -40,7 +40,7 @@ const MySelect = ({label, ...props}) => {
 };
 
 // And now we can use these
-const CreateCustomerForm = ({ fetchCustomers }) => {
+const CreateCustomerForm = ({ onSuccess }) => {
     return (
         <>
             <Formik
@@ -58,14 +58,14 @@ const CreateCustomerForm = ({ fetchCustomers }) => {
                     email: Yup.string()
                         .email('Must be 20 characters or less')
                         .required('Required'),
-                    password: Yup.string()
-                        .min(4, 'Must be 4 characters or more')
-                        .max(20, 'Must be 20 characters or less')
-                        .required('Required'),
                     age: Yup.number()
                         .min(16, 'Must be at least 16 years of age')
                         .max(100, 'Must be less than 100 years of age')
                         .required(),
+                    password: Yup.string()
+                        .min(4, 'Must be 4 characters or more')
+                        .max(15, 'Must be 15 characters or less')
+                        .required('Required'),
                     gender: Yup.string()
                         .oneOf(
                             ['MALE', 'FEMALE'],
@@ -77,18 +77,20 @@ const CreateCustomerForm = ({ fetchCustomers }) => {
                     setSubmitting(true);
                     saveCustomer(customer)
                         .then(res => {
+                            console.log(res);
                             successNotification(
                                 "Customer saved",
                                 `${customer.name} was successfully saved`
                             )
-                            fetchCustomers();
+                            onSuccess(res.headers["authorization"]);
                         }).catch(err => {
-                        errorNotification(
-                            err.code,
-                            err.response.data.message
-                        )
+                            console.log(err);
+                            errorNotification(
+                                err.code,
+                                err.response.data.message
+                            )
                     }).finally(() => {
-                        setSubmitting(false);
+                         setSubmitting(false);
                     })
                 }}
             >
