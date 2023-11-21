@@ -1,31 +1,29 @@
 import {
-    Heading,
+    AlertDialog,
+    AlertDialogBody, AlertDialogContent,
+    AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay,
     Avatar,
     Box,
+    Button,
     Center,
-    Image,
     Flex,
-    Text,
+    Heading,
+    Image,
     Stack,
     Tag,
-    useColorModeValue,
-    Button,
-    useDisclosure,
-    AlertDialogBody,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogContent,
-    AlertDialogOverlay, AlertDialog,
+    Text,
+    useColorModeValue, useDisclosure,
 } from '@chakra-ui/react';
+
+import {useRef} from 'react'
 import {deleteCustomer} from "../../services/client.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
-import {useRef} from "react";
 import UpdateCustomerDrawer from "./UpdateCustomerDrawer.jsx";
 
 export default function CardWithImage({id, name, email, age, gender, imageNumber, fetchCustomers}) {
-    const randomGender = gender === "MALE" ? "men" : "women"
+    const randomUserGender = gender === "MALE" ? "men" : "women";
 
-    const {isOpen, onOpen, onClose} = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
 
     return (
@@ -51,7 +49,7 @@ export default function CardWithImage({id, name, email, age, gender, imageNumber
                     <Avatar
                         size={'xl'}
                         src={
-                            `https://randomuser.me/api/portraits/${randomGender}/${imageNumber}.jpg`
+                            `https://randomuser.me/api/portraits/${randomUserGender}/${imageNumber}.jpg`
                         }
                         alt={'Author'}
                         css={{
@@ -73,7 +71,7 @@ export default function CardWithImage({id, name, email, age, gender, imageNumber
                 <Stack direction={'row'} justify={'center'} spacing={6} p={4}>
                     <Stack>
                         <UpdateCustomerDrawer
-                            initialValues={{name, email, age}}
+                            initialValues={{ name, email, age }}
                             customerId={id}
                             fetchCustomers={fetchCustomers}
                         />
@@ -115,12 +113,15 @@ export default function CardWithImage({id, name, email, age, gender, imageNumber
                                         </Button>
                                         <Button colorScheme='red' onClick={() => {
                                             deleteCustomer(id).then(res => {
+                                                console.log(res)
                                                 successNotification(
                                                     'Customer deleted',
                                                     `${name} was successfully deleted`
                                                 )
                                                 fetchCustomers();
+
                                             }).catch(err => {
+                                                console.log(err);
                                                 errorNotification(
                                                     err.code,
                                                     err.response.data.message

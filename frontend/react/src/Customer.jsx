@@ -1,34 +1,39 @@
+import {
+    Wrap,
+    WrapItem,
+    Spinner,
+    Text
+} from '@chakra-ui/react';
 import SidebarWithHeader from "./components/shared/SideBar.jsx";
-import {useEffect, useState} from "react";
-import {getCustomers} from "./services/client.js";
-import {Wrap, WrapItem, Spinner, Text} from "@chakra-ui/react";
+import { useEffect, useState } from 'react';
+import { getCustomers } from "./services/client.js";
 import CardWithImage from "./components/customer/CustomerCard.jsx";
 import CreateCustomerDrawer from "./components/customer/CreateCustomerDrawer.jsx";
 import {errorNotification} from "./services/notification.js";
 
-const App = () => {
-    const[customers, setCustomers] = useState([]);
-    const[loading, setLoading] = useState(false);
-    const[error, setError] = useState("");
+const Customer = () => {
+    const [customers, setCustomers] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [err, setError] = useState("");
 
     const fetchCustomers = () => {
         setLoading(true);
         getCustomers().then(res => {
-            setCustomers(res.data);
-        }).catch(e => {
-            setError(e.response.data.message)
+            setCustomers(res.data)
+        }).catch(err => {
+            setError(err.response.data.message)
             errorNotification(
-                e.code,
-                e.response.data.message
+                err.code,
+                err.response.data.message
             )
         }).finally(() => {
-            setLoading(false);
-        });
+            setLoading(false)
+        })
     }
 
     useEffect(() => {
         fetchCustomers();
-    }, []);
+    }, [])
 
     if (loading) {
         return (
@@ -44,18 +49,18 @@ const App = () => {
         )
     }
 
-    if (error) {
+    if (err) {
         return (
             <SidebarWithHeader>
                 <CreateCustomerDrawer
                     fetchCustomers={fetchCustomers}
                 />
-                <Text mt={5}>Ooops, there was an error...</Text>
+                <Text mt={5}>Ooops there was an error</Text>
             </SidebarWithHeader>
         )
     }
 
-    if (customers.length <= 0) {
+    if(customers.length <= 0) {
         return (
             <SidebarWithHeader>
                 <CreateCustomerDrawer
@@ -76,7 +81,7 @@ const App = () => {
                     <WrapItem key={index}>
                         <CardWithImage
                             {...customer}
-                            imageNumber = {index}
+                            imageNumber={index}
                             fetchCustomers={fetchCustomers}
                         />
                     </WrapItem>
@@ -86,4 +91,4 @@ const App = () => {
     )
 }
 
-export default App
+export default Customer;

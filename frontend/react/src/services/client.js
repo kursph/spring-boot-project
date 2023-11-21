@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const getAuthConfig = () => ({
     headers: {
@@ -8,7 +8,10 @@ const getAuthConfig = () => ({
 
 export const getCustomers = async () => {
     try {
-        return await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/v1/customers`, getAuthConfig())
+        return await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers`,
+            getAuthConfig()
+        )
     } catch (e) {
         throw e;
     }
@@ -25,21 +28,22 @@ export const saveCustomer = async (customer) => {
     }
 }
 
-export const deleteCustomer = async (id) => {
+export const updateCustomer = async (id, update) => {
     try {
-        return await axios.delete(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}`, getAuthConfig()
+        return await axios.put(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}`,
+            update,
+            getAuthConfig()
         )
     } catch (e) {
         throw e;
     }
 }
 
-export const updateCustomer = async (id, update) => {
+export const deleteCustomer = async (id) => {
     try {
-        return await axios.put(
+        return await axios.delete(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}`,
-            update,
             getAuthConfig()
         )
     } catch (e) {

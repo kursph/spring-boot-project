@@ -1,15 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import {ChakraProvider} from "@chakra-ui/react";
-import {createStandaloneToast} from "@chakra-ui/toast";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import Customer from './Customer.jsx'
+import {ChakraProvider, Text} from '@chakra-ui/react'
+import { createStandaloneToast } from '@chakra-ui/toast'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/login/Login.jsx";
+import Signup from "./components/signup/Signup";
 import AuthProvider from "./components/context/AuthContext.jsx";
 import ProtectedRoute from "./components/shared/ProtectedRoute.jsx";
-import Registration from "./components/registration/Registration.jsx";
+import './index.css'
+import Home from "./Home.jsx";
 
-const {ToastContainer} = createStandaloneToast();
+const { ToastContainer } = createStandaloneToast();
 
 const router = createBrowserRouter([
     {
@@ -17,22 +19,28 @@ const router = createBrowserRouter([
         element: <Login />
     },
     {
-        path: "registration",
-        element: <Registration />
+        path: "/signup",
+        element: <Signup />
     },
     {
-        path: "dashboard",
-        element: <ProtectedRoute><App /></ProtectedRoute>
+        path: "/dashboard",
+        element: <ProtectedRoute><Home/></ProtectedRoute>
+    },
+    {
+        path: "/dashboard/customers",
+        element: <ProtectedRoute><Customer /></ProtectedRoute>
     }
 ])
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <ChakraProvider>
-            <AuthProvider>
-                <RouterProvider router={router} />
-            </AuthProvider>
-            <ToastContainer />
-        </ChakraProvider>
-    </React.StrictMode>,
-)
+ReactDOM
+    .createRoot(document.getElementById('root'))
+    .render(
+        <React.StrictMode>
+            <ChakraProvider>
+                <AuthProvider>
+                    <RouterProvider router={router} />
+                </AuthProvider>
+                <ToastContainer />
+            </ChakraProvider>
+        </React.StrictMode>,
+    )

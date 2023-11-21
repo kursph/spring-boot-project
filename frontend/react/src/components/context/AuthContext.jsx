@@ -4,16 +4,15 @@ import {
     useEffect,
     useState
 } from "react";
-import {login as performLogin} from "../../services/client.js";
+import {getCustomers, login as performLogin} from "../../services/client.js";
 import {jwtDecode} from "jwt-decode";
 
 const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-
     const [customer, setCustomer] = useState(null);
 
-    useEffect(() => {
+    const setCustomerFromToken = () => {
         let token = localStorage.getItem("access_token");
         if (token) {
             token = jwtDecode(token);
@@ -22,6 +21,9 @@ const AuthProvider = ({ children }) => {
                 roles: token.scopes
             })
         }
+    }
+    useEffect(() => {
+        setCustomerFromToken()
     }, [])
 
     const login = async (usernameAndPassword) => {
@@ -66,7 +68,8 @@ const AuthProvider = ({ children }) => {
             customer,
             login,
             logOut,
-            isCustomerAuthenticated
+            isCustomerAuthenticated,
+            setCustomerFromToken
         }}>
             {children}
         </AuthContext.Provider>

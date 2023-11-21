@@ -15,7 +15,7 @@ import {
 import {Formik, Form, useField} from "formik";
 import * as Yup from 'yup';
 import {useAuth} from "../context/AuthContext.jsx";
-import {errorNotification, successNotification} from "../../services/notification.js";
+import {errorNotification} from "../../services/notification.js";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
@@ -60,10 +60,7 @@ const LoginForm = () => {
                 setSubmitting(true);
                 login(values).then(res => {
                     navigate("/dashboard")
-                    successNotification(
-                        "Successfully logged in",
-                        "Login"
-                    )
+                    console.log("Successfully logged in");
                 }).catch(err => {
                     errorNotification(
                         err.code,
@@ -104,13 +101,12 @@ const LoginForm = () => {
 }
 
 const Login = () => {
-
     const { customer } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (customer) {
-            navigate("/dashboard");
+            navigate("/dashboard/customers");
         }
     })
 
@@ -126,6 +122,9 @@ const Login = () => {
                     />
                     <Heading fontSize={'2xl'} mb={15}>Sign in to your account</Heading>
                     <LoginForm/>
+                    <Link color={"blue.500"} href={"/signup"}>
+                        Dont have an account? Signup now.
+                    </Link>
                 </Stack>
             </Flex>
             <Flex
