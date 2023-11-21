@@ -19,7 +19,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     @Override
     public List<Customer> selectAllCustomers() {
         String sql = """
-                SELECT id, password, name, email, age, gender FROM customer
+                SELECT id, password, name, email, age, gender FROM customer LIMIT 100
                 """;
 
         return jdbcTemplate.query(sql, customerRowMapper);
