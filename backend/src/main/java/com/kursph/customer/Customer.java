@@ -51,6 +51,10 @@ public class Customer implements UserDetails {
             nullable = false
     )
     private String password;
+    @Column(
+            unique = true
+    )
+    private String profileImageId;
 
     public Customer(
             Integer id,
@@ -58,13 +62,15 @@ public class Customer implements UserDetails {
             String name,
             String email,
             Integer age,
-            String gender) {
+            String gender,
+            String profileImageId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
         this.gender = gender;
         this.password = password;
+        this.profileImageId = profileImageId;
     }
 
     public Customer(String name, String email, String password, Integer age, String gender) {
@@ -129,7 +135,7 @@ public class Customer implements UserDetails {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, age, gender);
+        return Objects.hash(id, name, email, age, gender, password, profileImageId);
     }
 
     @Override
@@ -140,6 +146,8 @@ public class Customer implements UserDetails {
                 ", email='" + email + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
+                ", password='" + password + '\'' +
+                ", profileImageId='" + profileImageId + '\'' +
                 '}';
     }
 
@@ -176,5 +184,13 @@ public class Customer implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getProfileImageId() {
+        return profileImageId;
+    }
+
+    public void setProfileImageId(String profileImageId) {
+        this.profileImageId = profileImageId;
     }
 }

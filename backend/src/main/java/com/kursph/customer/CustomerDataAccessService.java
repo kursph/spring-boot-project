@@ -18,7 +18,8 @@ public class CustomerDataAccessService implements CustomerDAO{
                 "foobar", "Alex",
                 "alex@gmail.com",
                 22,
-                "MALE"
+                "MALE",
+                "sdfsdf"
         );
         customers.add(customer1);
     }
@@ -58,5 +59,10 @@ public class CustomerDataAccessService implements CustomerDAO{
     public Optional<Customer> selectUserByEmail(String email) {
         return customers.stream().filter(customer -> customer.getUsername().equals(email))
                 .findFirst();
+    }
+
+    @Override
+    public void updateCustomerProfileImageId(String profileImageId, Integer customerId) {
+
     }
 }
