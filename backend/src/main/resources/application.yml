@@ -9,6 +9,12 @@ cors:
   allowed-headers: "*"
   exposed-headers: "*"
 
+aws:
+  region: eu-central-1
+  s3:
+    bucket-name: elasticbeanstalk-eu-central-1-624739824262
+    mock: true
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/customer
@@ -24,6 +30,12 @@ spring:
     show-sql: true
   main:
     web-application-type: servlet
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  codec:
+    max-in-memory-size: 10MB
 
 management:
   endpoints:

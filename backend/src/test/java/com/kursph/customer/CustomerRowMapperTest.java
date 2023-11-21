@@ -20,6 +20,7 @@ class CustomerRowMapperTest {
         when(resultSet.getString("email")).thenReturn("alex@gmail.com");
         when(resultSet.getInt("age")).thenReturn(20);
         when(resultSet.getString("gender")).thenReturn("MALE");
+        when(resultSet.getString("profile_image_id")).thenReturn("22222");
 
         Customer actual = customerRowMapper.mapRow(resultSet, 1);
 
@@ -28,7 +29,8 @@ class CustomerRowMapperTest {
                 "foobar", "Alex",
                 "alex@gmail.com",
                 20,
-                "MALE"
+                "MALE",
+                "22222"
         );
 
         assertThat(actual).isEqualTo(expected);
