@@ -53,7 +53,6 @@ const UpdateCustomerDrawer = ({ fetchCustomers, initialValues, customerId }) => 
             </DrawerContent>
         </Drawer>
         </>
-
 }
 
 export default UpdateCustomerDrawer;
