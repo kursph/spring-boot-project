@@ -9,6 +9,11 @@ cors:
   allowed-headers: "*"
   exposed-headers: "*"
 
+aws:
+  region: eu-central-1
+  s3:
+    bucket-name: elasticbeanstalk-eu-central-1-624739824262
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/customer
