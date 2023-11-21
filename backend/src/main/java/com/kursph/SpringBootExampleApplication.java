@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Random;
 
-
 @SpringBootApplication
 public class SpringBootExampleApplication {
 
@@ -24,13 +23,13 @@ public class SpringBootExampleApplication {
 
 	@Bean
 	CommandLineRunner runner(
-			CustomerRepository customerRepository,
 			PasswordEncoder passwordEncoder,
+			CustomerRepository customerRepository,
 			S3Service s3Service,
 			S3Buckets s3Buckets
 	) {
 		return args -> {
-			// createRandomCustomer(customerRepository, passwordEncoder);
+			createRandomCustomer(customerRepository, passwordEncoder);
 			testBucketUploadAndDownload(s3Service, s3Buckets);
 		};
 	}

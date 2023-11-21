@@ -1,5 +1,6 @@
 package com.kursph.customer;
 
+import com.github.javafaker.Faker;
 import com.kursph.AbstractTestcontainers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -122,7 +123,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
 
     @Test
     void updateCustomer() {
-        String email = "ddd@gmail.com";
+        String email = "dddd@gmail.com";
         Customer customer = new Customer(
                 "ddd",
                 email,
@@ -151,5 +152,34 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         Optional<Customer> actual = customerJDBCDataAccessService.selectCustomerById(id);
 
         assertThat(actual).isPresent().hasValue(update);
+    }
+
+    @Test
+    void canUpdateProfileImageId() {
+        String email = "ddd@gmail.com";
+        Customer customer = new Customer(
+                "ddd",
+                email,
+                "foobar", 20,
+                "MALE"
+        );
+
+        customerJDBCDataAccessService.insertCustomer(customer);
+
+        int id = customerJDBCDataAccessService.selectAllCustomers()
+                .stream()
+                .filter(c -> c.getEmail().equals(email))
+                .map(Customer::getId)
+                .findFirst()
+                .orElseThrow();
+
+        customerJDBCDataAccessService.updateCustomerProfileImageId("2222", id);
+
+        Optional<Customer> customerOptional = customerJDBCDataAccessService.selectCustomerById(id);
+        assertThat(customerOptional)
+                .isPresent()
+                .hasValueSatisfying(
+                        c -> assertThat(c.getProfileImageId()).isEqualTo("2222")
+                );
     }
 }
