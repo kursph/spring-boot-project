@@ -23,11 +23,11 @@ const router = createBrowserRouter([
         element: <Signup />
     },
     {
-        path: "/dashboard",
+        path: "dashboard",
         element: <ProtectedRoute><Home/></ProtectedRoute>
     },
     {
-        path: "/dashboard/customers",
+        path: "dashboard/customers",
         element: <ProtectedRoute><Customer /></ProtectedRoute>
     }
 ])

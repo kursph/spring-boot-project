@@ -12,6 +12,7 @@ import CreateCustomerDrawer from "./components/customer/CreateCustomerDrawer.jsx
 import {errorNotification} from "./services/notification.js";
 
 const Customer = () => {
+
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [err, setError] = useState("");
