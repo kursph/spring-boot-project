@@ -16,7 +16,6 @@ const CloseIcon = () => "x";
 
 const CreateCustomerDrawer = ({ fetchCustomers }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
     return <>
         <Button
             leftIcon={<AddIcon/>}

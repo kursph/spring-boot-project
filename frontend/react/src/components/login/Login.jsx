@@ -101,6 +101,7 @@ const LoginForm = () => {
 }
 
 const Login = () => {
+
     const { customer } = useAuth();
     const navigate = useNavigate();
 
@@ -114,12 +115,6 @@ const Login = () => {
         <Stack minH={'100vh'} direction={{base: 'column', md: 'row'}}>
             <Flex p={8} flex={1} alignItems={'center'} justifyContent={'center'}>
                 <Stack spacing={4} w={'full'} maxW={'md'}>
-                    <Image
-                        src={"https://user-images.githubusercontent.com/40702606/210880158-e7d698c2-b19a-4057-b415-09f48a746753.png"}
-                        boxSize={"200px"}
-                        alt={"Amigoscode Logo"}
-                        alignSelf={"center"}
-                    />
                     <Heading fontSize={'2xl'} mb={15}>Sign in to your account</Heading>
                     <LoginForm/>
                     <Link color={"blue.500"} href={"/signup"}>
@@ -136,17 +131,11 @@ const Login = () => {
                 bgGradient={{sm: 'linear(to-r, blue.600, purple.600)'}}
             >
                 <Text fontSize={"6xl"} color={'white'} fontWeight={"bold"} mb={5}>
-                    <Link target={"_blank"} href={"https://amigoscode.com/courses"}>
-                        Enrol Now
+                    Welcome to my portfolio! Check out my&nbsp;
+                    <Link target={"_blank"} color={'greenyellow'} href={"https://www.linkedin.com/in/haris-kurspahic-331655137/"}>
+                        LinkedIn page.
                     </Link>
                 </Text>
-                <Image
-                    alt={'Login Image'}
-                    objectFit={'scale-down'}
-                    src={
-                        'https://user-images.githubusercontent.com/40702606/215539167-d7006790-b880-4929-83fb-c43fa74f429e.png'
-                    }
-                />
             </Flex>
         </Stack>
     );
