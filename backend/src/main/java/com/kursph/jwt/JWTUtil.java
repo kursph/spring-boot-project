@@ -38,7 +38,8 @@ public class JWTUtil {
                 .expiration(
                         Date.from(Instant.now().plus(15, ChronoUnit.DAYS))
                 )
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     private Key getSigningKey() {
