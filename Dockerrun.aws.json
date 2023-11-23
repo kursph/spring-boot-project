@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "kursph-api",
-      "image": "kurshjku/kursph-spring-boot-api:22.11.2023.11.52.03",
+      "image": "kurshjku/kursph-spring-boot-api:23.11.2023.10.31.38",
       "essential": true,
       "memory": 512,
       "portMappings": [
