@@ -4,6 +4,6 @@ aws:
 
 spring:
   datasource:
-    url: jdbc-secretsmanager:postgresql://awseb-e-f3tym6qff2-stack-awsebrdsdatabase-xuiy8zqdcqti.cwfngv7mxbca.eu-central-1.rds.amazonaws.com:5432/ebdb
+    url: jdbc-secretsmanager:postgresql://awseb-e-qgx3j4yfdq-stack-awsebrdsdatabase-zutwbiex3ibo.cwfngv7mxbca.eu-central-1.rds.amazonaws.com:5432/ebdb
     username: test/kursph-api/postgres
     driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerPostgreSQLDriver
